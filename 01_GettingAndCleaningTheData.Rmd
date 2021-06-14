@@ -1,0 +1,45 @@
+---
+title: "Task 1 - Getting and cleaning the data"
+author: "dillonchewwx"
+date: "15/06/2021"
+output:
+  prettydoc::html_pretty:
+    theme: hpstr
+    highlight: github
+---
+# Task 1 - Getting and cleaning the data
+
+The goal of this task is to get familiar with the databases and do the necessary cleaning. Note that the data do contain words of offensive and profane meaning which are left there intentionally to highlight the fact that the developer has to work on them. As stated in the task sheet, the two key tasks are to:
+
+1. Tokenization - identifying appropriate tokens such as words, punctuation, and numbers. 
+2. Profanity filtering - removing profanity and other words you do not want to predict.
+
+# Load libraries
+```{r Load libraries, message=FALSE, results='hide', warning=FALSE}
+library(knitr)
+library(tidyverse)
+library(tm)
+```
+
+# Load raw data
+```{r Load the Data, warning=FALSE}
+blogs_file<-"../Data/en_US.blogs.txt"
+news_file<-"../Data/en_US.news.txt"
+twitter_file<-"../Data/en_US.twitter.txt"
+
+blogs<-read_lines(blogs_file, skip_empty_rows=TRUE)
+news<-read_lines(news_file, skip_empty_rows=TRUE)
+twitter<-read_lines(twitter_file, skip_empty_rows=TRUE)
+```
+
+# Preliminary statistics of the data
+```{r Prelim Stats}
+data_summary<-tibble(`Data Set` = c("Blogs", "News", "Twitter"),
+                     `File Size (MB)` = c(file.size(blogs_file)/1e6, file.size(news_file)/1e6, file.size(twitter_file)/1e6),
+                     `No. of Lines` = c(length(blogs), length(news), length(twitter)), 
+                     `No. of Words` = c(sum(str_count(blogs, "\\S+")), sum(str_count(news, "\\S+")), sum(str_count(twitter, "\\S+"))), 
+                     `No. of Characters` = c(sum(nchar(blogs)), sum(nchar(news)), sum(nchar(twitter))))
+kable(data_summary)
+```
+
+
