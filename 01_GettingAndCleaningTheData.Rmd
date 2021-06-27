@@ -1,7 +1,7 @@
 ---
 title: "Task 1 - Getting and cleaning the data"
 author: "dillonchewwx"
-date: "15/06/2021"
+date: "25/06/2021"
 output:
   prettydoc::html_pretty:
     theme: hpstr
@@ -42,4 +42,50 @@ data_summary<-tibble(`Data Set` = c("Blogs", "News", "Twitter"),
 kable(data_summary)
 ```
 
+# Sample the data
+In this step, we will randomly select rows to get a sense of what kind of text is in the data. This will then allow us to create specific filters for cleaning up the data. Here, we will use the `sample` function to select 10% of the data for viewing.
+```{r Sample Data}
+set.seed(123)
+blogs_sample<-sample(blogs, length(blogs)*0.1)
+news_sample<-sample(news, length(news)*0.1)
+twitter_sample<-sample(twitter, length(twitter)*0.1)
 
+head(blogs_sample,30)
+head(news_sample,30)
+head(twitter_sample,30)
+```
+From this sampled set, some key observations include the following which has to be removed:
+
+1. Presence of many different punctuation 
+2. Smiley faces in twitter data set.
+3. Backslash character indicating new lines in the news data set 
+4. URLs
+
+# Clean the data
+In this step, we will clean up the data by applying the following pre-processing steps:
+
+1. Remove URLs
+2. Convert all letters to lower case
+3. Remove any numbers
+4. Remove all punctuation
+5. Remove white space
+
+Following which, we will create a Corpus with the `tm` package and apply the two transformations:
+1. Remove profanities: [List of Offensive/Profane words](https://www.cs.cmu.edu/~biglou/resources/bad-words.txt)
+2. Remove stop words
+```{r Clean Data}
+combined_data<-c(blogs, news, twitter) %>%
+    gsub("http[^[:space:]]*", "", .) %>%
+    str_to_lower() %>%
+    gsub("[0-9]", "", .) %>%
+    removePunctuation() %>%
+    stripWhitespace()
+
+profanities<-read_tsv("https://www.cs.cmu.edu/~biglou/resources/bad-words.txt")
+
+combined_Corpus<-Corpus(VectorSource(combined_data)) %>%
+    tm_map(removeWords, stopwords()) %>%
+    tm_map(removeWords, profanities$X1)
+
+as.character(combined_Corpus[1])
+```
