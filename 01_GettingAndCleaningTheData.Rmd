@@ -70,7 +70,7 @@ In this step, we will clean up the data by applying the following pre-processing
 4. Remove all punctuation
 5. Remove white space
 
-Following which, we will create a Corpus with the `tm` package and apply the two transformations:
+Following which, we will create a Corpus with the `tm` package and apply the following two transformations:
 1. Remove profanities: [List of Offensive/Profane words](https://www.cs.cmu.edu/~biglou/resources/bad-words.txt)
 2. Remove stop words
 ```{r Clean Data}
@@ -78,7 +78,7 @@ combined_data<-c(blogs, news, twitter) %>%
     gsub("http[^[:space:]]*", "", .) %>%
     str_to_lower() %>%
     gsub("[0-9]", "", .) %>%
-    removePunctuation() %>%
+    removePunctuation(ucp=TRUE) %>%
     stripWhitespace()
 
 profanities<-read_tsv("https://www.cs.cmu.edu/~biglou/resources/bad-words.txt")
@@ -86,6 +86,9 @@ profanities<-read_tsv("https://www.cs.cmu.edu/~biglou/resources/bad-words.txt")
 combined_Corpus<-Corpus(VectorSource(combined_data)) %>%
     tm_map(removeWords, stopwords()) %>%
     tm_map(removeWords, profanities$X1)
+```
 
-as.character(combined_Corpus[1])
+The created corpus will be saved for subsequent use.
+```{r Save Corpus}
+saveRDS(combined_Corpus, "../Data/combined_Corpus.rds")
 ```
