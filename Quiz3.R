@@ -55,4 +55,4 @@ for(i in 1:length(test_case)){
     res<-bind_rows(res, results)
 }
 
-# This very simple approach works about 50-60% of the time. Perhaps a better approach using machine learning should be implemented. 
+# This very simple approach works about 50-60% of the time and thus alternative models should be explored.
