@@ -1,0 +1,50 @@
+shinyUI(
+    dashboardPage(
+        dashboardHeader(title="Text Prediction Application"),
+        dashboardSidebar(
+            sidebarMenu(
+                menuItem("App", tabName="app", icon=icon("keyboard")),
+                menuItem("About", tabName="about", icon=icon("info-circle"))
+            )
+        ),
+    dashboardBody(
+        tabItems(
+            tabItem(tabName="app",
+                    fluidRow(width=12,
+                             box(title="Instructions",
+                                 width=12,
+                                 "Enter a word or phrase and the program would attempt to predict the next word.",
+                                 tags$br(),
+                                 tags$br(),
+                                 textInput("input_text", 
+                                           label="Enter Text Here",
+                                           value="")
+                                 )
+                             )
+                    ),
+            tabItem(tabName="about",
+                    fluidRow(width=12,
+                             box(title="About this project",
+                                 width=12,
+                                 "This Shiny app was created as part of a Coursera capstone project on Data Science:",  
+                                 tags$a(href="https://www.coursera.org/learn/data-science-project", "Data Science Capstone"),
+                                 " by Johns Hopkins University. The goal is to create a Shiny app that takes as input a phrase (multiple words) in a text box input and outputs a prediction of the next word.",
+                                 tags$p(),
+                                 "Feedback on how to improve is always appreciated.",
+                                 tags$p(),
+                                 "Last updated: 29 March 2022"
+                                 )
+                             ),
+                    fluidRow(width=12,
+                             box(title="Developer & Contact Information",
+                                 width=12,
+                                 "Dillon Chew @",
+                                 tags$a(href="https://www.linkedin.com/in/dillonchewwx/", "Linkedin |"),
+                                 tags$a(href="https://github.com/dillonchewwx", "Github")
+                                 )
+                             )
+                    )
+            )
+        )
+    )
+)
