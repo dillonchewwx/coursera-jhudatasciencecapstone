@@ -4,4 +4,4 @@ This is the repository for the Capstone Project from the [JHU Data Science Speci
 
 1. [Milestone report](https://dillonchewwx.github.io/coursera-jhudatasciencecapstone/MilestoneReport.html) which describes the features of the training data.
 2. [Shiny App](https://dillonchewwx.shinyapps.io/coursera-jhudatasciencecapstone/) which provides a user interface which can be accessed by users. 
-3. [Slide deck](https://github.com/dillonchewwx/coursera-jhudatasciencecapstone/Slides.html) documenting the project.
+3. [Slide deck](https://dillonchewwx.github.io/coursera-jhudatasciencecapstone/Slides.html) documenting the project.
