@@ -11,16 +11,27 @@ shinyUI(
         tabItems(
             tabItem(tabName="app",
                     fluidRow(width=12,
-                             box(title="Instructions",
+                             box(title=tags$b("Instructions"),
+                                 solidHeader=TRUE,
                                  width=12,
-                                 "Enter a word or phrase and the program would attempt to predict the next word.",
+                                 "Enter a word or phrase and the program will attempt to predict the next word.",
                                  tags$br(),
                                  tags$br(),
                                  textInput("input_text", 
                                            label="Enter Text Here",
-                                           value="")
+                                           value=""),
                                  )
-                             )
+                             ),
+                    fluidRow(width=12,
+                             box(title=tags$b("Predictions"),
+                                 solidHeader=TRUE,
+                                 width=12,
+                                 tags$b("You entered: "),
+                                 textOutput("entered_words"),
+                                 tags$br(),
+                                 tags$b("Predicted next word: "),
+                                 textOutput("predicted_word")
+                                 ))
                     ),
             tabItem(tabName="about",
                     fluidRow(width=12,
@@ -28,11 +39,11 @@ shinyUI(
                                  width=12,
                                  "This Shiny app was created as part of a Coursera capstone project on Data Science:",  
                                  tags$a(href="https://www.coursera.org/learn/data-science-project", "Data Science Capstone"),
-                                 " by Johns Hopkins University. The goal is to create a Shiny app that takes as input a phrase (multiple words) in a text box input and outputs a prediction of the next word.",
+                                 " by Johns Hopkins University. The goal is to create a Shiny app that takes a phrase (multiple words) in a text box input, and outputs a prediction of the next word.",
                                  tags$p(),
                                  "Feedback on how to improve is always appreciated.",
                                  tags$p(),
-                                 "Last updated: 29 March 2022"
+                                 "Last updated: 6 April 2022"
                                  )
                              ),
                     fluidRow(width=12,

@@ -90,21 +90,27 @@ bigram_data<-bigrams_filtered %>%
     ungroup() %>%
     select(bigram, n) %>%
     group_by(bigram) %>%
-    summarize(count=sum(n))
+    summarize(count=sum(n)) %>%
+    filter(count>1) %>%
+    separate(col=bigram, into=c("bigram", "lastword"), sep="\\s")
 
 trigram_data<-trigrams_filtered %>%
     ungroup() %>%
     select(trigram, n) %>%
     group_by(trigram) %>%
-    summarize(count=sum(n))
+    summarize(count=sum(n)) %>%
+    filter(count>1) %>%
+    mutate(lastword=word(trigram, -1, sep="\\s"), trigram=word(trigram, start=1, end=2, sep="\\s"))
 
 quadrigram_data<-quadrigrams_filtered %>%
     ungroup() %>%
     select(quadrigram, n) %>%
     group_by(quadrigram) %>%
-    summarize(count=sum(n))
+    summarize(count=sum(n)) %>%
+    filter(count>1) %>%
+    mutate(lastword=word(quadrigram, -1, sep="\\s"), quadrigram=word(quadrigram, start=1, end=3, sep="\\s"))
 
-# Save training data
-saveRDS(bigram_data, "../Data/bigram_data.rds")
-saveRDS(trigram_data, "../Data/trigram_data.rds")
-saveRDS(quadrigram_data, "../Data/quadrigram_data.rds")
+# Save data into a csv file
+write.csv(bigram_data, "appData/bigram_data.csv", row.names=FALSE)
+write.csv(trigram_data, "appData/trigram_data.csv", row.names=FALSE)
+write.csv(quadrigram_data, "appData/quadrigram_data.csv", row.names=FALSE)

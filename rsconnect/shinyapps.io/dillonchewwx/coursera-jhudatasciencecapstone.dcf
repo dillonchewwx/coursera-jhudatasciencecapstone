@@ -1,0 +1,14 @@
+name: coursera-jhudatasciencecapstone
+title: coursera-jhudatasciencecapstone
+username:
+account: dillonchewwx
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 6029873
+bundleId: 5771365
+url: https://dillonchewwx.shinyapps.io/coursera-jhudatasciencecapstone/
+when: 1649267096.0466
+lastSyncTime: 1649267096.0466
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: LoadandCleanData.R|MilestoneReport.html|MilestoneReport.Rmd|Quiz2.R|Quiz3.R
